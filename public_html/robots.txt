@@ -1,0 +1,4 @@
+# PREGLED ZA KLIJENTA – indeksiranje isključeno.
+# Pri objavi na iatropolismedicalcentre.rs zameniti sadržajem iz robots.production.txt
+User-agent: *
+Disallow: /

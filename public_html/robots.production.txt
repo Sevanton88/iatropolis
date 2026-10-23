@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /hvala/
+Disallow: /posalji.php
+
+Sitemap: https://iatropolismedicalcentre.rs/sitemap.xml

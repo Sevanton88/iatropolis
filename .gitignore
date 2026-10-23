@@ -1,0 +1,16 @@
+# radni folderi alata (nisu deo sajta)
+.impeccable/
+.playwright-mcp/
+
+
+# podaci forme na serveru (ograničenje učestalosti) – zadržati samo zaštitu foldera
+public_html/_data/*
+!public_html/_data/.htaccess
+
+# sistemski fajlovi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# arhive
+*.zip
