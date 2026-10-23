@@ -12,7 +12,7 @@ const MAIL_TO        = 'info@iatropolismedicalcentre.rs';
 const MAIL_FROM      = 'no-reply@iatropolismedicalcentre.rs'; // nalog mora postojati u cPanel-u (Email Accounts)
 const MAIL_FROM_NAME = 'Iatropolis sajt';
 const SITE_NAME      = 'iatropolismedicalcentre.rs';
-const THANK_YOU_URL  = '/hvala/';
+const THANK_YOU_URL  = 'hvala/'; // relativno – radi i kada sajt nije u korenu domena
 const RATE_MAX       = 5;     // najviše zahteva po IP adresi ...
 const RATE_WINDOW    = 3600;  // ... u ovom periodu (sekunde)
 const RATE_MIN_GAP   = 20;    // najmanji razmak između dva zahteva (sekunde)
@@ -55,7 +55,7 @@ function respond(bool $ok, array $payload = [], int $status = 200): void
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['ok' => $ok] + $payload, JSON_UNESCAPED_UNICODE);
     } else {
-        header('Location: ' . ($ok ? THANK_YOU_URL : '/?greska=1#kontakt'), true, 303);
+        header('Location: ' . ($ok ? THANK_YOU_URL : './?greska=1#kontakt'), true, 303);
     }
     exit;
 }

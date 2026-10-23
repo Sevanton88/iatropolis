@@ -89,23 +89,14 @@ Napomena: forma na preglednom domenu šalje sa `no-reply@iatropolismedicalcentre
 - Top bar iznad headera sa telefonom i e-mailom; u kontakt kartici Viber i WhatsApp (isti broj – potvrditi sa klijentom).
 - Plava za tekst je malo tamnija (#0B65C6) zbog WCAG AA kontrasta; ikonice i dalje #0679E8.
 
-## Pregled za klijenta (sa GitHub-a)
+## Pregled za klijenta (GitHub Pages)
 
-Repozitorijum je najbolje držati kao **privatni** (politika privatnosti sa pravnim podacima, fotografije čije licence još nisu potvrđene).
+Svaki push na `main` automatski objavljuje folder `public_html` na **https://sevanton88.github.io/iatropolis/** (workflow `.github/workflows/pages.yml`; jednom podešeno: Settings → Pages → Source: GitHub Actions).
 
-Najlakši pregled:
-1. Na GitHub-u: **Code → Download ZIP**, raspakovati.
-2. U folderu projekta pokrenuti lokalni server (potreban je samo Python):
-
-```bash
-python -m http.server 8765 --directory public_html
-```
-
-3. Otvoriti http://127.0.0.1:8765 u browseru.
-
-Napomene:
-- Sajt koristi apsolutne putanje (`/css/...`), pa se ne otvara ispravno duplim klikom na `index.html` niti kao GitHub Pages podstranica – potreban je server (lokalni ili hosting).
-- Kontakt forma lokalno ne šalje e-mail (potreban je PHP na cPanel-u); prikazaće poruku o grešci sa brojem telefona – to je očekivano.
+- Putanje su relativne, pa sajt radi na domenu, u podfolderu (Pages) i otvoren duplim klikom na `index.html`.
+- Linkovi u `js/i18n.js` i banneru pišu se od korena (`/politika-privatnosti/`) – `main.js` ih sam prilagođava (`SITE_ROOT`).
+- Na Pages-u forma ne šalje (nema PHP-a) i `.htaccess` se ne koristi; `noindex` meta tag i dalje važi.
+- Repozitorijum je javan – fotografije i politika privatnosti su vidljivi svima.
 
 ## Lokalni pregled
 

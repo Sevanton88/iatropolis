@@ -20,6 +20,25 @@
   var root = doc.documentElement;
   root.classList.add('js');
 
+  /* Koren sajta, izveden iz adrese ovog fajla (…/js/main.js). Sajt tako radi
+     na domenu, u podfolderu (GitHub Pages) i otvoren duplim klikom (file://). */
+  var SITE_ROOT = (function () {
+    var s = doc.currentScript && doc.currentScript.src;
+    return s ? s.replace(/js\/main\.js(\?.*)?$/, '') : '/';
+  })();
+  // Linkovi u prevodima/banneru su pisani od korena ("/politika-privatnosti/")
+  function rootHtml(html) { return html.replace(/href="\//g, 'href="' + SITE_ROOT); }
+
+  // Otvoreno duplim klikom: link na folder ("…/hvala/") vodi na njegov index.html
+  if (location.protocol === 'file:') {
+    doc.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.protocol !== 'file:' || !/\/$/.test(a.pathname)) return;
+      e.preventDefault();
+      location.href = a.href.replace(/\/(#.*)?$/, '/index.html$1');
+    });
+  }
+
   function $(sel, ctx) { return (ctx || doc).querySelector(sel); }
   function $$(sel, ctx) { return Array.prototype.slice.call((ctx || doc).querySelectorAll(sel)); }
 
@@ -62,7 +81,7 @@
       var o = original(el);
       if (o.html === undefined) o.html = el.innerHTML;
       var v = en && en[el.getAttribute('data-i18n-html')];
-      el.innerHTML = v != null ? v : o.html;
+      el.innerHTML = v != null ? rootHtml(v) : o.html;
     });
     $$('[data-i18n-attr]').forEach(function (el) {
       var o = original(el);
@@ -343,7 +362,7 @@
         .then(function (data) {
           if (data && data.ok) {
             storageSet('sessionStorage', CONFIG.leadFlagKey, '1');
-            window.location.href = data.redirect || '/hvala/';
+            window.location.href = SITE_ROOT + 'hvala/';
             return;
           }
           if (data && data.errors) showErrors(data.errors);
@@ -415,7 +434,7 @@
     box.className = 'cookie';
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-labelledby', 'cookie-naslov');
-    box.innerHTML = bannerHtml();
+    box.innerHTML = rootHtml(bannerHtml());
     box.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-consent]');
       if (!btn) return;
@@ -433,7 +452,7 @@
 
   doc.addEventListener('langchange', function () {
     var box = $('.cookie');
-    if (box) box.innerHTML = bannerHtml();
+    if (box) box.innerHTML = rootHtml(bannerHtml());
   });
 
   if (hasTrackers) {

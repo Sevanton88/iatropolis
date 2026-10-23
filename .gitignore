@@ -14,3 +14,6 @@ desktop.ini
 
 # arhive
 *.zip
+
+# raspakovane kopije za upload
+iatropolis-pregled/
